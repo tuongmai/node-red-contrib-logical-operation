@@ -1,0 +1,21 @@
+{
+    "name": "node-red-contrib-logical-operation", 
+    "version": "1.0.1", 
+    "description": "A custom Node-RED node for logical operation.",
+    "keywords": ["node-red", "custom node", "AND logic"],
+    "author": "Your Name",
+    "license": "MIT", 
+    "dependencies": {
+        "node-red": ">=1.0.0" 
+    },
+    "node-red": {
+        "nodes": {
+            "logical-and": "/and-node/and-node.js",
+            "logical-or": "/or-node/or-node.js",
+            "input-led": "/led/input-led.js",
+            "output-led": "/led/output-led.js"
+        }
+    }
+}
+
+

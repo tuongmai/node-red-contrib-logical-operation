@@ -1,0 +1,29 @@
+<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript" src="http://d3js.org/d3-selection-multi.v0.4.min.js"></script>
+
+<script type="text/javascript">
+RED.nodes.registerType('and-node', {
+  category: 'logical operation',
+  color: '#a6bbcf',
+  defaults: {
+    name: { value: '' },
+    current: { value: {} }
+  },
+  inputs: 1,
+  outputs: 1,
+  icon: 'function.png',
+  label: function () {
+    return this.name || "and";
+  }
+});
+</script>
+
+<script type="text/x-red" data-template-name="and-node">
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Name">
+  </div>
+  <div class="form-tips">
+    <span><i class="fa fa-info-circle"></i> The AND logic node outputs the logical AND of the two input values.</span>
+  </div>
+</script>

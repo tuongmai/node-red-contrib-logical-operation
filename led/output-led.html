@@ -1,0 +1,29 @@
+<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript" src="http://d3js.org/d3-selection-multi.v0.4.min.js"></script>
+
+<script type="text/javascript">
+RED.nodes.registerType('output-led', {
+  category: 'logical operation',
+  color: '#c6faac',
+  defaults: {
+    name: { value: '' },
+    current: { value: 'true' }
+  },
+  inputs: 1,
+  align: 'right',
+  icon: 'light.svg',
+  label: function () {
+    return this.name || "led out";
+  }
+});
+</script>
+
+<script type="text/x-red" data-template-name="output-led">
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Name">
+  </div>
+  <div class="form-tips">
+    <span><i class="fa fa-info-circle"></i> The LED for input values.</span>
+  </div>
+</script>
