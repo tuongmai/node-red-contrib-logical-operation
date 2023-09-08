@@ -12,6 +12,7 @@
         "nodes": {
             "logical-and": "/and-node/and-node.js",
             "logical-or": "/or-node/or-node.js",
+            "logical-not": "/not-node/not-node.js",
             "input-led": "/led/input-led.js",
             "output-led": "/led/output-led.js"
         }
