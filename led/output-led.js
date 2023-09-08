@@ -4,8 +4,9 @@ module.exports = function(RED) {
     var node = this;
 
     this.on('input', function(msg) {
-      var input = (msg.payload === "true");
-      config.current = input.toString();
+      // var input = (msg.payload.value === "true");
+      var input = msg.payload.value;
+      // config.current = input.toString();
       if (input) {
         node.status({ fill:"green", shape:"dot", text:"ON" });
       } else {

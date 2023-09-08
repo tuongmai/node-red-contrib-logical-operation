@@ -6,12 +6,12 @@ module.exports = function(RED) {
     this.on('input', function(msg) {
       var current = config.current;
       var id = msg.payload.id;
-      var change = msg.payload.change;
+      var value = msg.payload.value;
 
-      if (change === '') {
+      if (value === '') {
         delete current[id];
       } else {
-        current[id] = change;
+        current[id] = value;
       }
       
       var result = false;
@@ -20,8 +20,7 @@ module.exports = function(RED) {
         result = (result || value);
       }
       
-      result = result.toString();
-      msg.payload = result;
+      msg.payload = { id: config.id, value: result};
       config.current = current;
 
       node.send(msg);
