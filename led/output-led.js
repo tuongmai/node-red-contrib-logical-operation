@@ -4,11 +4,11 @@ module.exports = function(RED) {
     var node = this;
 
     this.on('input', function(msg) {
-      // var input = (msg.payload.value === "true");
       var input = msg.payload.value;
-      // config.current = input.toString();
       if (input) {
         node.status({ fill:"green", shape:"dot", text:"ON" });
+      } else if (input === '') {
+        node.status({ fill:"gray", shape:"dot", text:"UNKNOWN" });
       } else {
         node.status({ fill:"red", shape:"ring", text:"OFF" });
       }
