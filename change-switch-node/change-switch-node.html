@@ -1,0 +1,96 @@
+<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript" src="http://d3js.org/d3-selection-multi.v0.4.min.js"></script>
+
+<script type="text/javascript">
+RED.nodes.registerType('change-switch', {
+  category: 'logical operation',
+  color: '#f5e4a2',
+  defaults: {
+    name: { value: '' },
+    switch: { value: ["switch 1", "switch 2"] },
+    current: { value: 0 }
+  },
+  outputs: 1,
+  icon: 'function.png',
+  label: function () {
+    return this.name || "change-switch";
+  },
+  button: {
+    onclick: function() {
+      var node = this;
+      $.ajax({
+        url: "change-switch/" + this.id,
+        type: "POST"
+      })
+    }
+  },
+  oneditprepare: function () {
+    var node = this;
+    var count = this.switch.length;
+
+    for (var i = 0; i < count; i++){
+      $("#change-switch-container").append(
+        `<div id="change-switch-${i}" class="form-row">
+          <label for="change-switch-input-${i}"><i class="fa fa-tag"></i> Switch</label>
+          <input type="text" id="change-switch-input-${i}" value="${node.switch[i]}" placeholder="Name of switch" required>
+          <button type="button" id="change-switch-delete-button-${i}" value="${i}">x</button>
+        </div>
+        `
+      );
+
+      $(`#change-switch-delete-button-${i}`).on("click", function () {
+        count--;
+        node.switch[this.value] = "";
+        $(`#change-switch-${this.value}`).remove();
+      })
+    }
+    
+    $("#change-switch-add-button").on("click", function () {
+      node.switch.push("switch");
+      $("#change-switch-container").append(
+        `<div id="change-switch-${count}" class="form-row">
+          <label for="change-switch-input-${count}"><i class="fa fa-tag"></i> Switch</label>
+          <input type="text" id="change-switch-input-${count}" value="${node.switch[count]}" placeholder="Name of switch" required>
+          <button type="button" id="change-switch-delete-button-${count}" value="${count}">x</button>
+        </div>
+        `
+      );
+
+      $(`#change-switch-delete-button-${count}`).on("click", function () {
+        count--;
+        node.switch[this.value] = "";
+        $(`#change-switch-${this.value}`).remove();
+      })
+
+      count++;
+    });
+  },
+  oneditsave: function () {
+    var node = this;
+    var result = [];
+    for (var i = 0; i < node.switch.length; i++){
+      if (node.switch[i]){
+        var element = document.getElementById(`change-switch-input-${i}`);
+        var value = element.value;
+        result.push(value);
+      }
+    }
+    node.switch = result;
+    node.current = 0;
+  }
+});
+</script>
+
+<script type="text/x-red" data-template-name="change-switch">
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Name">
+  </div>
+  <div id="change-switch-container">
+    <h3>Switches</h3>
+  </div>
+  <button type="button" id="change-switch-add-button">Add switch</button>
+  <div class="form-tips">
+    <span><i class="fa fa-info-circle"></i> The CHANGE SWITCH node outputs that current position of the switch.</span>
+  </div>
+</script>
