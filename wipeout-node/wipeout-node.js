@@ -10,11 +10,11 @@ module.exports = function(RED) {
 
       if (payload.id === config.conditionC) {
         current.conditionC = value;
-        msg.payload = { id: config.id, value: value ? current.conditionA : ''};
-      } else if (payload.id === config.conditionA) {
+      } 
+      if (payload.id === config.conditionA) {
         current.conditionA = value;
-        msg.payload = { id: config.id, value: current.conditionC ? current.conditionA : ''};
       }
+      msg.payload = { id: config.id, value: current.conditionA && !current.conditionC};
 
       node.send(msg);
     });
