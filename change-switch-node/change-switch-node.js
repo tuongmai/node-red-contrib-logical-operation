@@ -2,8 +2,9 @@ module.exports = function(RED) {
   function ChangeSwitch(config) {
     RED.nodes.createNode(this, config);
     var node = this;
+    var switchList = config.switch;
     var index = config.current;
-    var value = config.switch[index];
+    var value = switchList[index];
     node.status({ fill: "yellow", shape: "dot", text: value });
 
     function sendMessageOnClose() {
@@ -17,17 +18,17 @@ module.exports = function(RED) {
     }
 
     this.change = function(){
-      var switchNumber = config.switch.length;
+      var switchNumber = switchList.length;
       var index = (config.current + 1) % switchNumber;
       config.current = index;
-      var value = config.switch[index];
+      var value = switchList[index];
       node.status({ fill: "yellow", shape: "dot", text: value });
-      var msg = {
-        payload: {
-          id: config.id,
-          value: value
-        }
-      };
+      var msg = [];
+      for (var i = 0; i < switchList.length; i++) {
+        msg.push({
+          payload: { id: config.id, value: (i == index) ? true : false }
+        })
+      }
       node.send(msg);
     };
 

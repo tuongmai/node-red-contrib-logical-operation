@@ -8,9 +8,13 @@ RED.nodes.registerType('change-switch', {
   defaults: {
     name: { value: '' },
     switch: { value: ["switch 1", "switch 2"] },
-    current: { value: 0 }
+    current: { value: 0 },
+    outputs: { value: 2 }
   },
-  outputs: 1,
+  outputs: 2,
+  outputLabels: function (index) {
+    return this.switch[index];
+  },
   icon: 'function.png',
   label: function () {
     return this.name || "change-switch";
@@ -64,19 +68,6 @@ RED.nodes.registerType('change-switch', {
 
       count++;
     });
-  },
-  oneditsave: function () {
-    var node = this;
-    var result = [];
-    for (var i = 0; i < node.switch.length; i++){
-      if (node.switch[i]){
-        var element = document.getElementById(`change-switch-input-${i}`);
-        var value = element.value;
-        result.push(value);
-      }
-    }
-    node.switch = result;
-    node.current = 0;
   }
 });
 </script>
@@ -89,7 +80,9 @@ RED.nodes.registerType('change-switch', {
   <div id="change-switch-container">
     <h3>Switches</h3>
   </div>
-  <button type="button" id="change-switch-add-button">Add switch</button>
+  <div class="form-row">
+    <button type="button" id="change-switch-add-button"> + Add </button>
+  </div>
   <div class="form-tips">
     <span><i class="fa fa-info-circle"></i> The CHANGE SWITCH node outputs that current position of the switch.</span>
   </div>
