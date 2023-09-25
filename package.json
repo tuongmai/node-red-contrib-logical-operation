@@ -16,7 +16,9 @@
             "input-led": "/led/input-led.js",
             "output-led": "/led/output-led.js",
             "wipeout": "/wipeout-node/wipeout-node.js",
-            "change-switch": "/change-switch-node/change-switch-node.js"
+            "change-switch": "/change-switch-node/change-switch-node.js",
+            "latching-relay": "/latching-relay/latching-relay-node.js",
+            "kioku-3": "/kioku-3/kioku-3.js"
         }
     }
 }

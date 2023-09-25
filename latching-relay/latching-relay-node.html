@@ -1,0 +1,52 @@
+<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript" src="http://d3js.org/d3-selection-multi.v0.4.min.js"></script>
+
+<script type="text/javascript">
+RED.nodes.registerType('latching-relay', {
+  category: 'logical operation',
+  color: '#f5e4a2',
+  defaults: {
+    name: { value: '' },
+    set: { value: '', require: true },
+    reset: { value: '', require: true },
+    q: { value: true },
+    notQ: { value: false },
+    current: {
+      value: { set: false, reset: false }
+    }
+  },
+  inputs: 1,
+  outputs: 2,
+  outputLabels: ['Q', 'not Q'],
+  icon: 'function.png',
+  label: function () {
+    return this.name || "latching-relay";
+  },
+  oneditsave: function () {
+    var node = this;
+    node.notQ = !node.q;
+  }
+});
+</script>
+
+<script type="text/x-red" data-template-name="latching-relay">
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Name">
+  </div>
+  <div class="form-row">
+    <label for="node-input-set"><i class="fa fa-tag"></i> SET</label>
+    <input type="text" id="node-input-set" placeholder="ID of node as SET" required>
+  </div>
+  <div class="form-row">
+    <label for="node-input-reset"><i class="fa fa-tag"></i> RESET</label>
+    <input type="text" id="node-input-reset" placeholder="ID of node as RESET" required>
+  </div>
+  <div class="form-row">
+    <label for="node-input-q"><i class="fa fa-tag"></i> Q</label>
+    <input type="text" id="node-input-q" placeholder="Default value of Q" required>
+  </div>
+  <div class="form-tips">
+    <span><i class="fa fa-info-circle"></i> The LATCHING RELAY node outputs that "Q" and "not Q" of SR flip-flop.</span>
+  </div>
+</script>
