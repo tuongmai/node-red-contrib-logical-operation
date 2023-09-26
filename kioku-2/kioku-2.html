@@ -1,0 +1,41 @@
+<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript" src="http://d3js.org/d3-selection-multi.v0.4.min.js"></script>
+
+<script type="text/javascript">
+RED.nodes.registerType('kioku-2', {
+  category: 'logical operation',
+  color: '#f5e4a2',
+  defaults: {
+    name: { value: '' },
+    conditionA: { value: '', require: true },
+    conditionC: { value: '', require: true },
+    current: {
+      value: { conditionA: false, outputB: false, conditionC: false }
+    }
+  },
+  inputs: 1,
+  outputs: 1,
+  icon: 'function.png',
+  label: function () {
+    return this.name || "記憶（２）";
+  }
+});
+</script>
+
+<script type="text/x-red" data-template-name="kioku-2">
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Name">
+  </div>
+  <div class="form-row">
+    <label for="node-input-conditionA"><i class="fa fa-tag"></i> Condition A</label>
+    <input type="text" id="node-input-conditionA" placeholder="ID of node as condition A" required>
+  </div>
+  <div class="form-row">
+    <label for="node-input-conditionC"><i class="fa fa-tag"></i> Condition C</label>
+    <input type="text" id="node-input-conditionC" placeholder="ID of node as condition C" required>
+  </div>
+  <div class="form-tips">
+    <span><i class="fa fa-info-circle"></i> The KIOKU-2 node outputs that retention of condition A depends on condition C (condition A is prioritized).</span>
+  </div>
+</script>
