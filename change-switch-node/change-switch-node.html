@@ -72,8 +72,8 @@ RED.nodes.registerType('change-switch', {
   oneditsave: function () {
     var node = this;
     var result = [];
-    for (var i = 0; i < node.switch.length; i++){
-      if (node.switch[i]){
+    for (var i = 0; i < node.switch.length; i++) {
+      if (node.switch[i]) {
         var element = document.getElementById(`change-switch-input-${i}`);
         var value = element.value;
         result.push(value);

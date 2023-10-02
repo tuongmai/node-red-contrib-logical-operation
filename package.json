@@ -20,7 +20,8 @@
             "latching-relay": "/latching-relay/latching-relay-node.js",
             "kioku-1": "/kioku-1/kioku-1.js",
             "kioku-2": "/kioku-2/kioku-2.js",
-            "kioku-3": "/kioku-3/kioku-3.js"
+            "kioku-3": "/kioku-3/kioku-3.js",
+            "jouchou": "/jouchou/jouchou.js"
         }
     }
 }
