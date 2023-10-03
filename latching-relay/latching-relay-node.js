@@ -2,6 +2,7 @@ module.exports = function(RED) {
   function LatchingRelayNode(config) {
     RED.nodes.createNode(this, config);
     var node = this;
+    this.lastSend = null;
 
     function nor(ele1, ele2) {
       return !(ele1 || ele2);
@@ -30,7 +31,10 @@ module.exports = function(RED) {
         { payload: { id: config.id, value: q} },
         { payload: { id: config.id, value: notQ} },
       ];
-      node.send(msgOut);
+      if (JSON.stringify(msgOut) != JSON.stringify(node.lastSend)) {
+        node.lastSend = msgOut;
+        node.send(msgOut);
+      }
     });
   }
   RED.nodes.registerType("latching-relay", LatchingRelayNode);

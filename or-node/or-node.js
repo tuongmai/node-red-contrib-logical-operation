@@ -2,6 +2,7 @@ module.exports = function(RED) {
   function OrNode(config) {
     RED.nodes.createNode(this, config);
     var node = this;
+    this.lastSend = null;
 
     this.on('input', function(msg) {
       var current = config.current;
@@ -20,10 +21,12 @@ module.exports = function(RED) {
         result = (result || value);
       }
       
-      msg.payload = { id: config.id, value: result};
       config.current = current;
-
-      node.send(msg);
+      if (result !== node.lastSend){
+        node.lastSend = result;
+        msg.payload = { id: config.id, value: result};
+        node.send(msg);
+      }
     });
   }
   RED.nodes.registerType("or-node", OrNode);

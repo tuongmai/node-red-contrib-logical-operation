@@ -2,6 +2,7 @@ module.exports = function(RED) {
   function Kioku1Node(config) {
     RED.nodes.createNode(this, config);
     var node = this;
+    this.lastSend = null;
     
     this.on('input', function(msg) {
       var current = config.current;
@@ -19,9 +20,12 @@ module.exports = function(RED) {
       var c = current.conditionC;
       var output = ((a || b) && (!c));
       current.outputB = output;
-      msg.payload = { id: config.id, value: output }
-      
-      node.send(msg);
+
+      if (output !== node.lastSend) {
+        node.lastSend = output;
+        msg.payload = { id: config.id, value: output };
+        node.send(msg);
+      }
     });
   }
   RED.nodes.registerType("kioku-1", Kioku1Node);

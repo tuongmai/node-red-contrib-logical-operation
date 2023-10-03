@@ -2,6 +2,7 @@ module.exports = function(RED) {
   function JouchouNode(config) {
     RED.nodes.createNode(this, config);
     var node = this;
+    this.lastSend = null;
     
     this.on('input', function(msg) {
       var current = config.current;
@@ -26,9 +27,13 @@ module.exports = function(RED) {
         current[payload.id] = false;
         config.count = config.count - 1;
       }
-      msg.payload = { id: config.id, value: (config.count >= config.minimumCondition) }
-      
-      node.send(msg);
+
+      var result = (config.count >= config.minimumCondition);
+      if (result !== node.lastSend){
+        node.lastSend = result;
+        msg.payload = { id: config.id, value: result };
+        node.send(msg);
+      }
     });
   }
   RED.nodes.registerType("jouchou", JouchouNode);

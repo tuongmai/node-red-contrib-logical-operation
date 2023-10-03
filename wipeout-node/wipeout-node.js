@@ -2,6 +2,7 @@ module.exports = function(RED) {
   function WipeoutNode(config) {
     RED.nodes.createNode(this, config);
     var node = this;
+    this.lastSend = null;
 
     this.on('input', function(msg) {
       var current = config.current;
@@ -14,9 +15,13 @@ module.exports = function(RED) {
       if (payload.id === config.conditionA) {
         current.conditionA = value;
       }
-      msg.payload = { id: config.id, value: current.conditionA && !current.conditionC};
 
-      node.send(msg);
+      var result = current.conditionA && !current.conditionC;
+      if (result !== node.lastSend) {
+        node.lastSend = result;
+        msg.payload = { id: config.id, value: result};
+        node.send(msg);
+      }
     });
   }
   RED.nodes.registerType("wipeout", WipeoutNode);

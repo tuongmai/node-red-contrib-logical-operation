@@ -2,6 +2,7 @@ module.exports = function(RED) {
   function Kioku3Node(config) {
     RED.nodes.createNode(this, config);
     var node = this;
+    this.lastSend = null;
 
     function nor(ele1, ele2) {
       return !(ele1 || ele2);
@@ -26,11 +27,15 @@ module.exports = function(RED) {
         config.resetYuusen = resetYuusen;
         config.setYuusen = setYuusen;
       }
+
       var msgOut = [
         { payload: { id: config.id, value: !setYuusen} },
         { payload: { id: config.id, value: resetYuusen} },
       ];
-      node.send(msgOut);
+      if (JSON.stringify(msgOut) != JSON.stringify(node.lastSend)) {
+        node.lastSend = msgOut;
+        node.send(msgOut);
+      }
     });
   }
   RED.nodes.registerType("kioku-3", Kioku3Node);

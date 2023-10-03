@@ -2,6 +2,7 @@ module.exports = function(RED) {
   function AndNode(config) {
     RED.nodes.createNode(this, config);
     var node = this;
+    this.lastSend = null;
 
     this.on('input', function(msg) {
       var current = config.current;
@@ -19,11 +20,13 @@ module.exports = function(RED) {
         var value = current[key];
         result = (result && value);
       }
-      
-      msg.payload = { id: config.id, value: result};
-      config.current = current;
 
-      node.send(msg);
+      config.current = current;
+      if (result !== node.lastSend){
+        node.lastSend = result;
+        msg.payload = { id: config.id, value: result};
+        node.send(msg);
+      }
     });
   }
   RED.nodes.registerType("and-node", AndNode);
