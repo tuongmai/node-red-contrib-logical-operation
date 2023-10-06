@@ -15,13 +15,15 @@
             "logical-not": "/not-node/not-node.js",
             "input-led": "/led/input-led.js",
             "output-led": "/led/output-led.js",
-            "wipeout": "/wipeout-node/wipeout-node.js",
             "change-switch": "/change-switch-node/change-switch-node.js",
+            "wipeout": "/wipeout-node/wipeout-node.js",
             "latching-relay": "/latching-relay/latching-relay-node.js",
             "kioku-1": "/kioku-1/kioku-1.js",
             "kioku-2": "/kioku-2/kioku-2.js",
             "kioku-3": "/kioku-3/kioku-3.js",
-            "jouchou": "/jouchou/jouchou.js"
+            "jouchou": "/jouchou/jouchou.js",
+            "chien-dousaku": "/chien-dousaku/chien-dousaku.js",
+            "chien-fukki": "/chien-fukki/chien-fukki.js"
         }
     }
 }

@@ -1,0 +1,40 @@
+<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript" src="http://d3js.org/d3-selection-multi.v0.4.min.js"></script>
+
+<script type="text/javascript">
+RED.nodes.registerType('chien-dousaku', {
+  category: 'logical operation',
+  color: '#a6d7f7',
+  defaults: {
+    name: { value: '' },
+    waitTime: { value: 0, require: true },
+  },
+  inputs: 1,
+  outputs: 1,
+  icon: 'function.png',
+  label: function () {
+    return this.name || "遅延動作";
+  },
+  oneditprepare: function () {
+    $("#node-input-waitTime").typedInput({
+      type:"num",
+      typeField: "#node-input-waitTime-type"
+    })
+  }
+});
+</script>
+
+<script type="text/x-red" data-template-name="chien-dousaku">
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Name">
+  </div>
+  <div class="form-row">
+    <label for="node-input-waitTime"><i class="fa fa-tag"></i> Delay time</label>
+    <input type="text" id="node-input-waitTime" placeholder="Delay time in second" required>
+    <input type="hidden" id="node-input-waitTime-type">
+  </div>
+  <div class="form-tips">
+    <span><i class="fa fa-info-circle"></i> When input is true, the 遅延動作 node outputs after t seconds.</span>
+  </div>
+</script>
