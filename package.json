@@ -23,7 +23,8 @@
             "kioku-3": "/kioku-3/kioku-3.js",
             "jouchou": "/jouchou/jouchou.js",
             "chien-dousaku": "/chien-dousaku/chien-dousaku.js",
-            "chien-fukki": "/chien-fukki/chien-fukki.js"
+            "chien-fukki": "/chien-fukki/chien-fukki.js",
+            "one-shot": "/one-shot/one-shot.js"
         }
     }
 }

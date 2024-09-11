@@ -1,0 +1,40 @@
+<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript" src="http://d3js.org/d3-selection-multi.v0.4.min.js"></script>
+
+<script type="text/javascript">
+RED.nodes.registerType('one-shot', {
+  category: 'logical operation',
+  color: '#FD6B45',
+  defaults: {
+    name: { value: '' },
+    expireTime: { value: 0, require: true },
+  },
+  inputs: 1,
+  outputs: 1,
+  icon: 'function.png',
+  label: function () {
+    return this.name || "one shot";
+  },
+  oneditprepare: function () {
+    $("#node-input-expireTime").typedInput({
+      type:"num",
+      typeField: "#node-input-expireTime-type"
+    })
+  }
+});
+</script>
+
+<script type="text/x-red" data-template-name="one-shot">
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Name">
+  </div>
+  <div class="form-row">
+    <label for="node-input-expireTime"><i class="fa fa-tag"></i> Expire time</label>
+    <input type="text" id="node-input-expireTime" placeholder="Expire time in second" required>
+    <input type="hidden" id="node-input-expireTime-type">
+  </div>
+  <div class="form-tips">
+    <span><i class="fa fa-info-circle"></i> When input is false, the 遅延復帰 node outputs after t seconds.</span>
+  </div>
+</script>
