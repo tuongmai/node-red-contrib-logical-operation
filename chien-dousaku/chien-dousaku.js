@@ -2,7 +2,6 @@ module.exports = function(RED) {
   function ChiendousakuNode(config) {
     RED.nodes.createNode(this, config);
     var node = this;
-    this.msgList = 0;
     
     this.on('input', function(msg) {
       var waitTime = config.waitTime;
@@ -12,14 +11,16 @@ module.exports = function(RED) {
       msg = { payload: { id: config.id, value: value } };
       
       if (value) {
-        node.msgList++;
-        node.status({ fill:"blue", shape:"dot", text: `${node.msgList} delay` });
+        for (let i = Math.floor(waitTime); i >= 0; i--) {
+          setTimeout(() => {
+            node.status({ fill:"blue", shape:"dot", text: `${i}s` });
+          }, (waitTime - i) * 1000);
+        }
         setTimeout(() => {
-          node.msgList--;
-          node.status({ fill:"blue", shape:"dot", text: `${node.msgList} delay` });
           node.send(msg);
         }, waitTime * 1000);
       } else {
+        node.status({ fill:"blue", shape:"dot", text: `0s` });
         node.send(msg);
       }
     });
